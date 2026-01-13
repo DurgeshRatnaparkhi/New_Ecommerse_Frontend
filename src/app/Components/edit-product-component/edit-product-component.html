@@ -1,0 +1,29 @@
+<div class="form-wrapper">
+  <h2>Edit Product</h2>
+
+  <form (ngSubmit)="updateProduct()">
+
+    <label>Name</label>
+    <input type="text" [(ngModel)]="product.name" name="name" required />
+
+    <label>Description</label>
+    <textarea [(ngModel)]="product.description" name="description"></textarea>
+
+    <label>Price</label>
+    <input type="number" [(ngModel)]="product.price" name="price" required />
+
+    <label>Quantity</label>
+    <input type="number" [(ngModel)]="product.quantityAvailable" name="qty" required />
+
+    <label>Brand</label>
+    <input type="text" [(ngModel)]="product.brand" name="brand" />
+
+    <label>Category</label>
+    <input type="text" [(ngModel)]="product.category" name="category" />
+
+    <label>Change Image (optional)</label>
+    <input type="file" (change)="onImageSelected($event)" />
+
+    <button type="submit" class="btn update-btn">Update Product</button>
+  </form>
+</div>

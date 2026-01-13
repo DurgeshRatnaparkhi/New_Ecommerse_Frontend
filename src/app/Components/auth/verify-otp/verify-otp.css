@@ -1,0 +1,101 @@
+/* Full-screen Center Layout */
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f4f6f9;
+  padding: 20px;
+}
+
+/* Card Box */
+.card {
+  width: 400px;
+  background: #ffffff;
+  padding: 30px 25px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Heading */
+h2 {
+  margin-bottom: 20px;
+  color: #222;
+  font-weight: 600;
+  font-size: 26px;
+}
+
+/* Form Layout */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Label */
+label {
+  text-align: left;
+  font-size: 15px;
+  color: #444;
+  font-weight: 500;
+  margin-bottom: -10px;
+}
+
+/* Inputs */
+input {
+  padding: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  width: 100%;
+  transition: 0.2s;
+}
+
+input:focus {
+  border-color: #3f51b5;
+  box-shadow: 0 0 4px rgba(63, 81, 181, 0.4);
+  outline: none;
+}
+
+/* Button */
+button {
+  padding: 14px;
+  border: none;
+  border-radius: 6px;
+  background: #4755a5;
+  color: white;
+  font-size: 17px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 100%;
+}
+
+button:hover {
+  background: #303f9f;
+}
+
+/* Message */
+p {
+  font-size: 15px;
+  margin-top: 10px;
+  color: green;
+}
+
+/* Error Message */
+.error {
+  color: red;
+}
+
+/* Link */
+a {
+  color: #3f51b5;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  text-decoration: underline;
+}

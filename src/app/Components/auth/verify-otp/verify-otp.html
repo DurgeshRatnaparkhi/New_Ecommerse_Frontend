@@ -1,0 +1,9 @@
+<h2>Verify OTP</h2>
+
+<p>Email: {{ email }}</p>
+
+<input type="text" [(ngModel)]="otp" placeholder="Enter OTP">
+
+<button (click)="verify()">Verify OTP</button>
+
+<p>{{ message }}</p>

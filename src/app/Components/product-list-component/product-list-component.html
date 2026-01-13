@@ -1,0 +1,87 @@
+<div class="list-wrapper">
+  <div class="list-header">
+    <h2>Products</h2>
+    <button class="add-btn" (click)="goToAdd()">+ Add Product</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading products...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <!-- Search -->
+  <div class="search-bar">
+    <input
+      type="text"
+      placeholder="Search products..."
+      [(ngModel)]="keyword"
+      (keyup)="search()"
+    />
+  </div>
+
+  <!-- ⭐ IMAGE POPUP MODAL (correct place) -->
+  <div class="image-modal" *ngIf="selectedImage" (click)="closeImage()">
+    <span class="close-btn" (click)="closeImage(); $event.stopPropagation()">✖</span>
+
+    <img 
+      [src]="selectedImage" 
+      class="full-image" 
+      (click)="$event.stopPropagation()" 
+    />
+  </div>
+
+  <!-- Product Table -->
+  <table *ngIf="!loading && products.length" class="product-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Brand</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Qty</th>
+        <th class="action-col">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let p of products; let i = index">
+        <td>{{ i + 1 }}</td>
+
+        <td>
+          <img
+            [src]="getImageUrl(p.id)"
+            (error)="onImageError($event)"
+            class="thumb"
+            (click)="openImage(getImageUrl(p.id))"
+          />
+        </td>
+
+        <td>{{ p.name }}</td>
+
+        <td class="desc">{{ p.description }}</td>
+
+        <td>{{ p.brand }}</td>
+        <td>{{ p.category }}</td>
+        <td>₹ {{ p.price }}</td>
+        <td>{{ p.quantityAvailable }}</td>
+
+        <td class="action-buttons">
+          <button class="edit-btn" (click)="editProduct(p.id)">✏️</button>
+          <button class="delete-btn" (click)="deleteProduct(p.id)">🗑️</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="page === 0">⬅ Previous</button>
+    <span>Page {{ page + 1 }} of {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="page + 1 === totalPages">Next ➡</button>
+  </div>
+
+  <div *ngIf="!loading && products.length === 0" class="no-data">
+    No products found.
+  </div>
+</div>

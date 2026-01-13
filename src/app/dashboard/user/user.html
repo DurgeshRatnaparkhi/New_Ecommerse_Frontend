@@ -1,0 +1,101 @@
+<div class="dashboard-container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="welcome-text">Welcome, {{ name }}</div>
+
+    <div class="profile-wrapper">
+      <img src="assets/mercedesbenzmaybachsclassexteriorrightfrontthreequarter.webp"
+           class="profile-icon" 
+           (click)="toggleMenu()" />
+
+      <div class="profile-dropdown" *ngIf="showMenu">
+        <button (click)="logout()">Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section Title -->
+  <h3 class="section-title">
+    <span class="icon">🛒</span> Available Products
+  </h3>
+
+  <!-- Loading / Error -->
+  <div *ngIf="loading" class="loading">Loading products...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  
+  <!-- 🔍 SEARCH BOX -->
+  <input 
+    type="text"
+    placeholder="Search products..."
+    [(ngModel)]="searchText"
+    (input)="searchProducts()"
+    class="search-box"
+  />
+
+
+  <!-- FILTER + CART BAR -->
+  <div class="top-bar">
+
+    <!-- Filters -->
+    <div class="filter-box">
+      <select [(ngModel)]="selectedCategory" (change)="filterProducts()">
+        <option value="">All Categories</option>
+        <option value="laptop">Laptop</option>
+        <option value="mobile">Mobile</option>
+        <option value="car">Car</option>
+        <option value="accessories">Accessories</option>
+      </select>
+
+      <select [(ngModel)]="sortOption" (change)="sortProducts()">
+        <option value="">Sort By</option>
+        <option value="low">Price: Low to High</option>
+        <option value="high">Price: High to Low</option>
+      </select>
+    </div>
+
+    <!-- Cart Button -->
+    <div class="cart-box" (click)="goToCart()">
+      🛒 Cart <span class="cart-count">{{ cartCount }}</span>
+    </div>
+
+  </div>
+
+
+  <!-- PRODUCT GRID -->
+  <div class="product-grid">
+    <div class="product-card" *ngFor= "let p of paginatedProducts">
+
+      <img [src]="getImage(p.id!)" class="product-img" />
+
+      <div class="product-info">
+        <h4 class="p-name">{{ p.name }}</h4>
+        <p class="p-brand">{{ p.brand }}</p>
+        <p class="p-price">₹ {{ p.price }}</p>
+        <p class="p-desc">{{ p.description }}</p>
+      </div>
+
+      <button class="order-btn" (click)="orderNow(p)">Add to Cart</button>
+    </div>
+  </div>
+
+  <!-- PAGINATION -->
+  <div class="pagination">
+
+    <button 
+      (click)="currentPage = currentPage - 1"
+      [disabled]="currentPage === 1">
+      Previous
+    </button>
+
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+
+    <button
+      (click)="currentPage = currentPage + 1"
+      [disabled]="currentPage === totalPages">
+      Next
+    </button>
+  </div>
+
+</div>

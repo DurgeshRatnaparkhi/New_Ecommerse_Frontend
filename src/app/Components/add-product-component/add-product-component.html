@@ -1,0 +1,44 @@
+<div class="product-form-card">
+  <h2>Add New Product</h2>
+
+  <form [formGroup]="productForm" (ngSubmit)="submit()">
+
+    <div class="row">
+      <div class="col">
+        <label>Product Name</label>
+        <input type="text" formControlName="name">
+      </div>
+
+      <div class="col">
+        <label>Brand</label>
+        <input type="text" formControlName="brand">
+      </div>
+    </div>
+
+    <label>Description</label>
+    <textarea formControlName="description"></textarea>
+
+    <div class="row">
+      <div class="col">
+        <label>Price</label>
+        <input type="number" formControlName="price">
+      </div>
+
+      <div class="col">
+        <label>Quantity</label>
+        <input type="number" formControlName="quantityAvailable">
+      </div>
+    </div>
+
+    <label>Category</label>
+    <input type="text" formControlName="category">
+
+    <label>SKU</label>
+    <input type="text" formControlName="sku">
+
+    <label>Product Image</label>
+    <input type="file" (change)="onImageSelected($event)">
+
+    <button type="submit" class="btn">Add Product</button>
+  </form>
+</div>
