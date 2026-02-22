@@ -1,0 +1,50 @@
+<div class="checkout-container">
+
+  <!-- LEFT SECTION -->
+  <div class="address-section">
+    <h2>Delivery Address</h2>
+
+    <div class="address-list">
+      <div 
+        *ngFor="let address of addresses"
+        (click)="selectAddress(address.id)"
+        [class.selected]="selectedAddressId === address.id"
+        class="address-card">
+
+        <h4>{{address.name}}</h4>
+        <p>{{address.street}}</p>
+        <p>{{address.city}}, {{address.state}} - {{address.pincode}}</p>
+        <p>{{address.mobile}}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT SECTION -->
+  <div class="summary-section">
+
+    <h3>Order Summary</h3>
+
+    <div class="summary-item" *ngFor="let item of cartItems">
+      <span>{{item.productName}} × {{item.quantity}}</span>
+      <span>₹ {{item.totalPrice}}</span>
+    </div>
+
+    <hr>
+
+    <div class="summary-total">
+      <span>Total</span>
+      <span>₹ {{grandTotal}}</span>
+    </div>
+
+    <button 
+      class="place-order-btn"
+      [disabled]="!selectedAddressId || loading"
+      (click)="confirmOrder()">
+
+      <span *ngIf="!loading">Place Order</span>
+      <span *ngIf="loading">Processing...</span>
+    </button>
+
+  </div>
+
+</div>

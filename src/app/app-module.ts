@@ -18,6 +18,8 @@ import { AddProductComponent } from './Components/add-product-component/add-prod
 import { ProductListComponent } from './Components/product-list-component/product-list-component';
 import { EditProductComponent } from './Components/edit-product-component/edit-product-component';
 import { CartComponent } from './Components/cart-component/cart-component';
+import { Order } from './Components/order/order';
+import { MyOrders } from './Components/my-orders/my-orders';
 
 
 
@@ -37,7 +39,9 @@ import { CartComponent } from './Components/cart-component/cart-component';
     AddProductComponent,
     ProductListComponent,
     EditProductComponent,
-    CartComponent
+    CartComponent,
+    Order,
+    MyOrders
     
 
    

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Cart } from '../../models/cart';
 import { CartService } from '../../Service/cart-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart-component',
@@ -12,7 +13,7 @@ export class CartComponent implements OnInit {
 
   cart: Cart | null = null;  // Cart is interface model
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private router:Router) {}
 
   ngOnInit(): void {
     this.loadCart();
@@ -38,4 +39,7 @@ export class CartComponent implements OnInit {
       error: () => alert('Failed to decrease quantity')
     });
   }
+  goToOrderPage() {
+  this.router.navigate(['/order']);
+}
 }
