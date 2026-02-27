@@ -1,9 +1,9 @@
 import { Product } from "./product";
 
 export interface CartItem {
-  id: number;
-  product: Product;
-  quantity: number;
+  productId: number;
+  productName: string;
   price: number;
+  quantity: number;
   totalPrice: number;
 }

@@ -1,37 +1,141 @@
-<div class="container">
-  <div class="card">
-    <h2>Login</h2>
+<!-- 🎨✨ Ultra Beautiful Animated Login Page ✨🎨 -->
+<div class="main-container">
+  <!-- Animated Background Elements -->
+  <div class="floating-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+    <div class="shape shape-4"></div>
+  </div>
 
-    <form (ngSubmit)="onSubmit()">
-      <input 
-        type="email" 
-        placeholder="Email" 
-        [(ngModel)]="form.email" 
-        name="email" 
-        required 
-      />
+  <!-- Left Hero Section -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <!-- Animated Logo -->
+      <div class="logo-wrapper">
+        <div class="logo-icon">🛍️</div>
+        <div class="logo-glow"></div>
+      </div>
 
-      <input 
-        type="password" 
-        placeholder="Password" 
-        [(ngModel)]="form.password" 
-        name="password" 
-        required 
-      />
+      <!-- Animated Title with Gradient -->
+      <h1 class="hero-title"><span class="title-word">Welcome</span> <span class="title-word">to</span> <span class="title-word" style="background: linear-gradient(45deg, #FFD700, #FFA500); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">ShopHub</span></h1>
+      
+      <p class="hero-subtitle">Your Ultimate Shopping Destination</p>
+      
+      <!-- Animated Features Grid -->
+      <div class="features">
+        <div class="feature-item feature-1">
+          <span class="feature-icon">✨</span>
+          <p>Premium Products</p>
+          <div class="feature-shine"></div>
+        </div>
+        <div class="feature-item feature-2">
+          <span class="feature-icon">🚚</span>
+          <p>Fast Delivery</p>
+          <div class="feature-shine"></div>
+        </div>
+        <div class="feature-item feature-3">
+          <span class="feature-icon">🛡️</span>
+          <p>Secure Payment</p>
+          <div class="feature-shine"></div>
+        </div>
+        <div class="feature-item feature-4">
+          <span class="feature-icon">💬</span>
+          <p>24/7 Support</p>
+          <div class="feature-shine"></div>
+        </div>
+      </div>
 
-      <button type="submit">Login</button>
-    </form>
+      <p class="hero-description">
+        Discover thousands of premium products at unbeatable prices. Shop with confidence, save with every purchase!
+      </p>
+    </div>
+  </div>
 
-    <!-- ⭐ Added Forgot Password link -->
-    <p style="margin-top: 10px;">
-      <a routerLink="/forgot-password" style="color:#0d6efd; text-decoration:none;">
-        Forgot Password?
-      </a>
-    </p>  
+  <!-- Right Login Section -->
+  <div class="login-section">
+    <!-- Animated Card Glow -->
+    <div class="card-glow"></div>
+    
+    <div class="login-card">
+      <!-- Animated Top Line -->
+      <div class="card-top-line"></div>
 
-    <p>
-      Don't have an account?
-      <a routerLink="/register">Register</a>
-    </p>
+      <div class="login-header">
+        <h2 class="sign-in-title">Sign In</h2>
+        <p>Access your account</p>
+      </div>
+
+      <form (ngSubmit)="onSubmit()" class="login-form">
+        <div class="form-group">
+          <label>Email Address</label>
+          <div class="input-wrapper">
+            <span class="input-icon">✉️</span>
+            <input 
+              type="email" 
+              placeholder="Enter your email" 
+              [(ngModel)]="form.email" 
+              name="email" 
+              required 
+              class="form-input"
+            />
+            <div class="input-underline"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <div class="input-wrapper">
+            <span class="input-icon">🔒</span>
+            <input 
+              type="password" 
+              placeholder="Enter your password" 
+              [(ngModel)]="form.password" 
+              name="password" 
+              required 
+              class="form-input"
+            />
+            <div class="input-underline"></div>
+          </div>
+        </div>
+
+        <div class="remember-forgot">
+          <label class="remember-me">
+            <input type="checkbox" />
+            <span>Remember me</span>
+          </label>
+          <a routerLink="/forgot-password" class="forgot-link">Forgot Password?</a>
+        </div>
+
+        <button type="submit" class="login-btn">
+          <span class="btn-text">Sign In</span>
+          <span class="btn-shimmer"></span>
+        </button>
+      </form>
+
+      <div class="divider">
+        <span>OR</span>
+      </div>
+
+      <div class="alternative-login">
+        <button class="social-btn google-btn" type="button">
+          <span>🔵 Sign with Google</span>
+          <span class="social-shimmer"></span>
+        </button>
+      </div>
+
+      <div class="signup-section">
+        <p>Don't have an account? 
+          <a routerLink="/register" class="signup-link">Create one now</a>
+        </p>
+      </div>
+
+      <div class="terms">
+        <p>By signing in, you agree to our 
+          <a href="#">Terms of Service</a> and 
+          <a href="#">Privacy Policy</a>
+        </p>
+      </div>
+    </div>
   </div>
 </div>

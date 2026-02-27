@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   selector: 'app-cart-component',
   standalone: false,
   templateUrl: './cart-component.html',
-  styleUrl: './cart-component.css',
+  styleUrls: ['./cart-component.css'],
 })
 export class CartComponent implements OnInit {
 
