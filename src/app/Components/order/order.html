@@ -1,48 +1,74 @@
-<div class="checkout-container">
+<div class="order-container">
 
-  <!-- LEFT SECTION -->
-  <div class="address-section">
-    <h2>Delivery Address</h2>
+  <div class="left-section">
+    <h2 class="section-title">Select Delivery Address</h2>
 
-    <div class="address-list">
-      <div 
-        *ngFor="let address of addresses"
-        (click)="selectAddress(address.id)"
-        [class.selected]="selectedAddressId === address.id"
-        class="address-card">
+    <!-- Address List -->
+    <div *ngIf="addresses.length > 0">
 
-        <h4>{{address.name}}</h4>
-        <p>{{address.street}}</p>
-        <p>{{address.city}}, {{address.state}} - {{address.pincode}}</p>
-        <p>{{address.mobile}}</p>
+      <div *ngFor="let address of addresses"
+           (click)="selectedAddressId = address.id"
+           [class.selected]="selectedAddressId === address.id"
+           class="address-card">
+
+        <div class="radio-section">
+          <input type="radio"
+                 [checked]="selectedAddressId === address.id" />
+        </div>
+
+        <div class="address-details">
+          <h4>{{address.fullName}}</h4>
+          <p>{{address.street}}</p>
+          <p>{{address.city}}, {{address.state}} - {{address.pincode}}</p>
+          <p class="mobile">📞 {{address.mobile}}</p>
+        </div>
+
       </div>
+
+      <button class="add-new-btn" (click)="toggleAddressForm()">
+        + Add New Address
+      </button>
+
     </div>
+
+    <!-- Address Form -->
+    <div *ngIf="showAddressForm" class="address-form">
+
+      <h3>Add New Address</h3>
+
+      <input placeholder="Full Name" [(ngModel)]="newAddress.fullName">
+      <input placeholder="Mobile Number" [(ngModel)]="newAddress.mobile">
+      <input placeholder="Street Address" [(ngModel)]="newAddress.street">
+      <input placeholder="City" [(ngModel)]="newAddress.city">
+      <input placeholder="State" [(ngModel)]="newAddress.state">
+      <input placeholder="Pincode" [(ngModel)]="newAddress.pincode">
+
+      <button class="save-btn" (click)="saveAddress()">Save Address</button>
+    </div>
+
   </div>
 
-  <!-- RIGHT SECTION -->
-  <div class="summary-section">
+  <!-- Right Section (Order Summary) -->
+  <div class="right-section">
 
     <h3>Order Summary</h3>
 
-    <div class="summary-item" *ngFor="let item of cartItems">
-      <span>{{item.productName}} × {{item.quantity}}</span>
-      <span>₹ {{item.totalPrice}}</span>
+    <div *ngFor="let item of cartItems" class="summary-item">
+      <span>{{item.productName}} x {{item.quantity}}</span>
+      <span>₹{{item.totalPrice}}</span>
     </div>
 
     <hr>
 
-    <div class="summary-total">
+    <div class="total">
       <span>Total</span>
-      <span>₹ {{grandTotal}}</span>
+      <span>₹{{grandTotal}}</span>
     </div>
 
-    <button 
-      class="place-order-btn"
-      [disabled]="!selectedAddressId || loading"
-      (click)="confirmOrder()">
-
-      <span *ngIf="!loading">Place Order</span>
-      <span *ngIf="loading">Processing...</span>
+    <button class="confirm-btn"
+            [disabled]="loading"
+            (click)="confirmOrder()">
+      {{ loading ? 'Placing Order...' : 'Confirm Order' }}
     </button>
 
   </div>

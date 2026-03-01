@@ -2,6 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrderService } from '../../Service/orderService';
+import { Address } from '../../models/address';
+import { CartItem } from '../../models/cart-item';
+import { AddressService } from '../../Service/address-service';
+import { CartService } from '../../Service/cart-service';
+
 
 @Component({
   selector: 'app-order',
@@ -11,17 +16,27 @@ import { OrderService } from '../../Service/orderService';
 })
 export class Order implements OnInit {
 
-  addresses: any[] = [];
-  selectedAddressId: number | null = null;
-
+addresses: any[] = [];
   cartItems: any[] = [];
-  grandTotal: number = 0;
+  grandTotal = 0;
 
-  loading: boolean = false;
+  selectedAddressId: number | null = null;
+  showAddressForm = false;
+  loading = false;
+
+  newAddress = {
+    fullName: '',
+    mobile: '',
+    street: '',
+    city: '',
+    state: '',
+    pincode: ''
+  };
 
   constructor(
+    private addressService: AddressService,
+    private cartService: CartService,
     private orderService: OrderService,
-    private http: HttpClient,
     private router: Router
   ) {}
 
@@ -30,63 +45,64 @@ export class Order implements OnInit {
     this.loadCart();
   }
 
-  // ✅ Load user addresses
-  loadAddresses(): void {
-    this.http.get<any>('http://localhost:8080/api/address/user')
-      .subscribe({
-        next: (data) => {
-          this.addresses = data;
-        },
-        error: (err) => {
-          console.error('Failed to load addresses', err);
+  loadAddresses() {
+    this.addressService.getUserAddresses(this.newAddress).subscribe({
+      next: (data) => {
+        this.addresses = data;
+
+        if (data.length > 0) {
+          this.selectedAddressId = data[0].id ?? null;
+        } else {
+          this.showAddressForm = true; // auto show form if no address
         }
+      }
+    });
+  }
+
+  loadCart() {
+    this.cartService.getCart().subscribe(data => {
+      this.cartItems = data.items;
+      this.grandTotal = data.totalAmount;
+    });
+  }
+
+  toggleAddressForm() {
+    this.showAddressForm = !this.showAddressForm;
+  }
+
+  saveAddress() {
+    this.addressService.saveAddress(this.newAddress)
+      .subscribe((saved: any) => {
+
+        this.addresses.push(saved);
+        this.selectedAddressId = saved.id;
+        this.showAddressForm = false;
+
+        // reset form
+        this.newAddress = {
+          fullName: '',
+          mobile: '',
+          street: '',
+          city: '',
+          state: '',
+          pincode: ''
+        };
       });
   }
 
-  // ✅ Load cart summary
-  loadCart(): void {
-    this.http.get<any>('http://localhost:8080/api/cart')
-      .subscribe({
-        next: (data) => {
-          this.cartItems = data.items;
-          this.grandTotal = data.totalAmount;
-        },
-        error: (err) => {
-          console.error('Failed to load cart', err);
-        }
-      });
-  }
-
-  // ✅ Select address
-  selectAddress(id: number): void {
-    this.selectedAddressId = id;
-  }
-
-  // ✅ Confirm order
-  confirmOrder(): void {
-
+  confirmOrder() {
     if (!this.selectedAddressId) {
-      alert("Please select an address");
-      return;
+      alert("Select address first");
+      return; 
     }
 
     this.loading = true;
 
-    const payload = {
+    this.orderService.placeOrder({
       addressId: this.selectedAddressId
-    };
-
-    this.orderService.placeOrder(payload)
-      .subscribe({
-        next: () => {
-          this.loading = false;
-          this.router.navigate(['/orders']);
-        },
-        error: (err) => {
-          this.loading = false;
-          console.error("Order failed", err);
-          alert("Order failed!");
-        }
-      });
+    }).subscribe(() => {
+      this.loading = false;
+      this.router.navigate(['/orders']);
+    });
   }
 }
