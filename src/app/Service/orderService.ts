@@ -7,15 +7,16 @@ import { Observable } from 'rxjs';
 })
 export class OrderService {
 
-  private baseUrl = 'http://localhost:8080/api/orders';
+  private baseUrl = 'http://localhost:8081/api/orders';
 
   constructor(private http: HttpClient) {}
 
-  placeOrder(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/place`, data);
+  // 🔥 Use this for Razorpay
+  createRazorpayOrder(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/create`, data);
   }
 
   getMyOrders(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/my-orders`);
+    return this.http.get(`${this.baseUrl}/place`);
   }
 }
