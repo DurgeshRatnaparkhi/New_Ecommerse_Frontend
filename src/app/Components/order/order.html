@@ -21,6 +21,12 @@
           <p>{{address.street}}</p>
           <p>{{address.city}}, {{address.state}} - {{address.pincode}}</p>
           <p class="mobile">📞 {{address.mobile}}</p>
+
+             <button class="delete-icon-btn"
+        title="Delete Address"
+        (click)="deleteAddress(address.id); $event.stopPropagation()">
+                                                     🗑
+</button>
         </div>
 
       </div>
@@ -45,6 +51,7 @@
 
       <button class="save-btn" (click)="saveAddress()">Save Address</button>
     </div>
+    
 
   </div>
 
@@ -71,6 +78,9 @@
       {{ loading ? 'Placing Order...' : 'Confirm Order' }}
     </button>
 
+
   </div>
 
+
 </div>
+

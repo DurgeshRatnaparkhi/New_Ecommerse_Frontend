@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class OrderService {
 
   private baseUrl = 'http://localhost:8081/api/orders';
+  private paymentUrl = 'http://localhost:8081/api/payment';
 
   constructor(private http: HttpClient) {}
 
@@ -17,6 +18,11 @@ export class OrderService {
   }
 
   getMyOrders(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/place`);
+  return this.http.get(`${this.baseUrl}/my`);
+}
+  // Verify Payment After Razorpay Success
+  verifyPayment(data: any): Observable<any> {
+    return this.http.post(`${this.paymentUrl}/verify`, data);
   }
+  
 }

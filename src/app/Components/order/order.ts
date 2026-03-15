@@ -128,13 +128,31 @@ export class Order implements OnInit {
 
     handler: (response: any) => {
 
-      alert("Payment Successful! Verifying...");
+  console.log("Payment Success:", response);
 
-      setTimeout(() => {
+  const paymentData = {
+    razorpayOrderId: response.razorpay_order_id,
+    razorpayPaymentId: response.razorpay_payment_id,
+    razorpaySignature: response.razorpay_signature
+  };
+
+  // 🔥 CALL BACKEND VERIFY API
+  this.orderService.verifyPayment(paymentData)
+    .subscribe({
+      next: (res:any) => {
+
+        alert("Payment Verified & Order Placed Successfully");
+
         this.router.navigate(['/orders']);
-      }, 2000);
 
-    },
+      },
+      error: (err) => {
+        console.error(err);
+        alert("Payment verification failed");
+      }
+    });
+
+},
 
     prefill: {
       name: "Customer",
@@ -143,7 +161,7 @@ export class Order implements OnInit {
     },
 
     theme: {
-      color: "#3399cc"
+      color: "rgb(51, 153, 204)"
     }
   };
 
@@ -155,4 +173,26 @@ export class Order implements OnInit {
   });
 
   rzp.open();
-}}
+}
+
+
+   deleteAddress(id: number) {
+
+  if(confirm("Are you sure you want to delete this address?")){
+
+    this.addressService.deleteAddress(id).subscribe(
+      (res:any)=>{
+        alert("Address deleted successfully");
+
+        this.loadAddresses(); // reload list
+      },
+      (error)=>{
+        console.log(error);
+      }
+    );
+
+  }
+
+}
+
+}

@@ -19,4 +19,9 @@ export class AddressService {
   saveAddress(address: Address): Observable<Address> {
   return this.http.post<Address>(`${this.baseUrl}`, address);
 }
+
+deleteAddress(id: number){
+  return this.http.delete(`${this.baseUrl}/${id}`);
+}
+
 }
