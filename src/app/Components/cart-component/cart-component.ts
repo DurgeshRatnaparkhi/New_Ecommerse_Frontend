@@ -19,12 +19,22 @@ export class CartComponent implements OnInit {
     this.loadCart();
   }
 
-  loadCart() {
-    this.cartService.getCart().subscribe({
-      next: cart => this.cart = cart,
-      error: () => alert('Failed to load cart')
-    });
-  }
+   loadCart() {
+  this.cartService.getCart().subscribe({
+    next: cart => {
+
+      this.cart = cart;
+
+      // FIX: If cart empty reset total
+      if (!this.cart.items || this.cart.items.length === 0) {
+        this.cart.totalAmount = 0;
+      }
+
+    },
+    error: () => alert('Failed to load cart')
+  });
+}
+
 
   increaseQty(productId: number) {
     this.cartService.increaseQuantity(productId).subscribe({

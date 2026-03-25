@@ -64,7 +64,9 @@
         <td>{{ p.brand }}</td>
         <td>{{ p.category }}</td>
         <td>₹ {{ p.price }}</td>
-        <td>{{ p.quantityAvailable }}</td>
+        <td [ngClass]="{'low-stock': p.stock < 5}">
+  {{ p.stock }}
+</td>
 
         <td class="action-buttons">
           <button class="edit-btn" (click)="editProduct(p.id)">✏️</button>
