@@ -24,5 +24,13 @@ export class OrderService {
   verifyPayment(data: any): Observable<any> {
     return this.http.post(`${this.paymentUrl}/verify`, data);
   }
+
+  getOrderById(id: number) {
+  return this.http.get(`${this.baseUrl}/${id}`);
+}
+
+cancelOrder(id: number) {
+  return this.http.put(`http://localhost:8081/api/orders/${id}/cancel`, {});
+}
   
 }

@@ -1,17 +1,46 @@
 <div class="orders-container">
 
-  <h2>My Orders</h2>
+  <h2 class="page-title">✨ My Orders</h2>
 
-  <div *ngFor="let order of orders" class="order-card">
+  <div *ngFor="let order of orders; let i = index" 
+       class="order-card animate-card"
+       [style.animationDelay]="i * 0.1 + 's'">
 
-    <h4>Order ID: {{order.orderId}}</h4>
-    <p>Date: {{order.orderDate | date}}</p>
-    <p>Status: {{order.status}}</p>
-    <p>Total: ₹ {{order.totalAmount}}</p>
+    <!-- HEADER -->
+    <div class="order-header">
+      <div>
+        <h3>Order #{{order.orderId}}</h3>
+        <p class="order-date">{{order.orderDate | date:'mediumDate'}}</p>
+      </div>
 
-    <div *ngFor="let item of order.items">
-      <p>{{item.productName}} - Qty: {{item.quantity}}</p>
+      <div class="order-status" [ngClass]="order.status.toLowerCase()">
+        {{order.status}}
+      </div>
     </div>
+
+    <!-- BODY -->
+    <div class="order-body">
+
+      <div class="order-items">
+        <div *ngFor="let item of order.items" class="item">
+          <div class="item-info">
+            <p class="product-name">{{item.productName}}</p>
+            <p class="qty">Qty: {{item.quantity}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-summary">
+        <p>Total</p>
+        <h2>₹ {{order.totalAmount}}</h2>
+      </div>
+
+    </div>
+
+    <!-- ✅ ADD THIS BUTTON -->
+  <button (click)="viewOrder(order.orderId)">
+    View Details
+  </button>
 
   </div>
 

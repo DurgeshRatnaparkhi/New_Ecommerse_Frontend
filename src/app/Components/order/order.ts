@@ -31,6 +31,7 @@ export class Order implements OnInit {
     state: '',
     pincode: ''
   };
+order: any;
 
   constructor(
     private addressService: AddressService,
@@ -193,6 +194,9 @@ export class Order implements OnInit {
 
   }
 
+}
+viewOrder(id: number) {
+  this.router.navigate(['/order-details', id]);
 }
 
 }

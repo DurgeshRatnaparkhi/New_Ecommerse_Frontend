@@ -20,6 +20,7 @@ import { EditProductComponent } from './Components/edit-product-component/edit-p
 import { CartComponent } from './Components/cart-component/cart-component';
 import { Order } from './Components/order/order';
 import { MyOrders } from './Components/my-orders/my-orders';
+import { OrderDetails } from './order-details/order-details';
 
 
 
@@ -41,7 +42,8 @@ import { MyOrders } from './Components/my-orders/my-orders';
     EditProductComponent,
     CartComponent,
     Order,
-    MyOrders
+    MyOrders,
+    OrderDetails
     
 
    

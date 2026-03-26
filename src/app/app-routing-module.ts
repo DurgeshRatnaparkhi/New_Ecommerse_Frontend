@@ -18,6 +18,7 @@ import { AddProductComponent } from './Components/add-product-component/add-prod
 import { CartComponent } from './Components/cart-component/cart-component';
 import { Order } from './Components/order/order';
 import { MyOrders } from './Components/my-orders/my-orders';
+import { OrderDetails } from './order-details/order-details';
 
 
 
@@ -33,6 +34,7 @@ const routes: Routes = [
   {path:'cart',component:CartComponent},
   {path:'order',component:Order ,canActivate : [AuthGuard]},
   {path:'orders',component:MyOrders,canActivate : [AuthGuard]},
+  {path:'order-details/:id',component:OrderDetails,canActivate : [AuthGuard]},
 
   // ADMIN Protected Routes
   {

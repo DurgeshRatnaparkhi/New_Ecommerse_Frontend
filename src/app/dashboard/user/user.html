@@ -1,19 +1,19 @@
 <div class="dashboard-container">
 
-  <!-- HEADER -->
-  <div class="header">
-    <div class="welcome-text">Welcome, {{ name }}</div>
+ <!-- HEADER -->
+<div class="header glass">
+  <div class="welcome-text">👋 Welcome, {{ name }}</div>
 
-    <div class="profile-wrapper">
-      <img src="assets/mercedesbenzmaybachsclassexteriorrightfrontthreequarter.webp"
-           class="profile-icon" 
-           (click)="toggleMenu()" />
+  <div class="profile-wrapper">
+    <img src="assets/mercedesbenzmaybachsclassexteriorrightfrontthreequarter.webp"
+         class="profile-icon" 
+         (click)="toggleMenu()" />
 
-      <div class="profile-dropdown" *ngIf="showMenu">
-        <button (click)="logout()">Logout</button>
-      </div>
+    <div class="profile-dropdown" *ngIf="showMenu">
+      <button (click)="logout()">Logout</button>
     </div>
   </div>
+</div>
 
   <!-- Section Title -->
   <h3 class="section-title">
@@ -34,6 +34,18 @@
     class="search-box"
   />
 
+   <!-- ACTION BUTTONS -->
+  <div class="actions">
+
+    <div class="orders-btn" (click)="goToOrders()">
+      📦 Orders
+    </div>
+
+    <div class="cart-box" (click)="goToCart()">
+      🛒 Cart <span class="cart-count">{{ cartCount }}</span>
+    </div>
+
+  </div>
 
   <!-- FILTER + CART BAR -->
   <div class="top-bar">
@@ -64,21 +76,26 @@
 
 
   <!-- PRODUCT GRID -->
-  <div class="product-grid">
-    <div class="product-card" *ngFor= "let p of paginatedProducts">
+<div class="product-grid">
+  <div class="product-card animate-card" *ngFor="let p of paginatedProducts; let i = index"
+       [style.animationDelay]="i * 0.1 + 's'">
 
+    <div class="img-wrapper">
       <img [src]="getImage(p.id!)" class="product-img" />
-
-      <div class="product-info">
-        <h4 class="p-name">{{ p.name }}</h4>
-        <p class="p-brand">{{ p.brand }}</p>
-        <p class="p-price">₹ {{ p.price }}</p>
-        <p class="p-desc">{{ p.description }}</p>
-      </div>
-
-      <button class="order-btn" (click)="orderNow(p)">Add to Cart</button>
     </div>
+
+    <div class="product-info">
+      <h4 class="p-name">{{ p.name }}</h4>
+      <p class="p-brand">{{ p.brand }}</p>
+      <p class="p-price">₹ {{ p.price }}</p>
+      <p class="p-desc">{{ p.description }}</p>
+    </div>
+
+    <button class="order-btn" (click)="orderNow(p)">
+      ➕ Add to Cart
+    </button>
   </div>
+</div>
 
   <!-- PAGINATION -->
   <div class="pagination">

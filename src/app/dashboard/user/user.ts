@@ -91,6 +91,7 @@ orderNow(p: Product) {
   this.router.navigate(['/cart']);
 }
 
+
   getImage(id: number) {
   return this.productService.getProductImageUrl(id);
 }
@@ -143,6 +144,10 @@ get totalPages() {
   return Math.ceil(this.products.length / this.itemsPerPage);
 }
 
+goToOrders() {
+  this.router.navigate(['/orders']);
+}
 
 
 }
+

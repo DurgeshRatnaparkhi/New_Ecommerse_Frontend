@@ -1,0 +1,66 @@
+<div class="details-container" *ngIf="order">
+
+  <h2>📦 Order Details</h2>
+
+  <!-- HEADER -->
+  <div class="order-header">
+    <div>
+      <h3>Order #{{order.orderId}}</h3>
+      <p>{{order.orderDate | date:'medium'}}</p>
+    </div>
+
+    <!-- ✅ STATUS BADGE -->
+    <div class="status" [ngClass]="order?.status">
+      {{order?.status}}
+    </div>
+  </div>
+
+  <!-- ✅ TIMELINE -->
+  <div class="timeline">
+
+    <div class="step" 
+         [class.active]="order?.status === 'CREATED' || order?.status === 'PLACED'">
+      Created
+    </div>
+
+    <div class="step" 
+         [class.active]="order?.status === 'SHIPPED' || order?.status === 'DELIVERED'">
+      Shipped
+    </div>
+
+    <div class="step" 
+         [class.active]="order?.status === 'DELIVERED'">
+      Delivered
+    </div>
+
+    <!-- CANCELLED -->
+    <div class="step cancelled" 
+         *ngIf="order?.status === 'CANCELLED'">
+      ❌ Cancelled
+    </div>
+
+  </div>
+
+  <!-- ITEMS -->
+  <div class="items">
+    <div class="item" *ngFor="let item of order.items">
+      <div>
+        <h4>{{item.productName}}</h4>
+        <p>Qty: {{item.quantity}}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOTAL -->
+  <div class="total">
+    <h3>Total: ₹ {{order.totalAmount}}</h3>
+  </div>
+
+  <!-- CANCEL BUTTON -->
+  <button class="cancel-btn" 
+          *ngIf="order?.status === 'CREATED' || order?.status === 'PLACED'"
+          (click)="cancelOrder()">
+    ❌ Cancel Order
+  </button>
+
+</div>
