@@ -32,5 +32,16 @@ export class OrderService {
 cancelOrder(id: number) {
   return this.http.put(`http://localhost:8081/api/orders/${id}/cancel`, {});
 }
+
+getAllOrdersAdmin() {
+  return this.http.get("http://localhost:8081/api/orders/admin/orders");
+}
+
+updateOrderStatus(id: number, status: string) {
+  return this.http.put(
+    `http://localhost:8081/api/orders/admin/${id}/status`,
+    { status }
+  );
+}
   
 }
