@@ -67,6 +67,9 @@
 .cancelled {
   background: #dc3545;
 }
+.failed {
+  background: #e53935;
+}
 
 /* BODY */
 .order-body {
@@ -147,3 +150,4 @@ button::after {
 button:active::after {
   transform: translate(-50%, -50%) scale(1);
 }
+

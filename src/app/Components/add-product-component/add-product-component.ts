@@ -26,7 +26,7 @@ export class AddProductComponent {
       name: ['', Validators.required],
       description: ['', Validators.required],
       price: ['', Validators.required],
-      quantityAvailable: ['', Validators.required],
+      stock: ['', Validators.required],
       brand: ['', Validators.required],
       category: ['', Validators.required],
       sku: ['', Validators.required],

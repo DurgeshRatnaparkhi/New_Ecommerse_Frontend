@@ -25,6 +25,11 @@ export class OrderService {
     return this.http.post(`${this.paymentUrl}/verify`, data);
   }
 
+  // Handle Payment Failure
+  paymentFailed(data: any): Observable<any> {
+  return this.http.post(`${this.paymentUrl}/failure`, data);
+}
+
   getOrderById(id: number) {
   return this.http.get(`${this.baseUrl}/${id}`);
 }
@@ -40,8 +45,17 @@ getAllOrdersAdmin() {
 updateOrderStatus(id: number, status: string) {
   return this.http.put(
     `http://localhost:8081/api/orders/admin/${id}/status`,
-    { status }
+    { status: status }   // ✅ send in body
   );
 }
-  
+
+getDashboardStats() {
+  return this.http.get('http://localhost:8081/api/orders/admin/dashboard');
 }
+
+getOrdersChart() {
+  return this.http.get('http://localhost:8081/api/orders/admin/orders-chart');
+}
+}
+  
+  

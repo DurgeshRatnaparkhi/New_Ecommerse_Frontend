@@ -22,6 +22,7 @@ import { Order } from './Components/order/order';
 import { MyOrders } from './Components/my-orders/my-orders';
 import { OrderDetails } from './order-details/order-details';
 import { AdminOrders } from './Components/admin-orders/admin-orders';
+import { AdminDashboard } from './Components/admin-dashboard/admin-dashboard';
 
 
 
@@ -45,7 +46,8 @@ import { AdminOrders } from './Components/admin-orders/admin-orders';
     Order,
     MyOrders,
     OrderDetails,
-    AdminOrders
+    AdminOrders,
+    AdminDashboard
     
 
    

@@ -1,0 +1,35 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.card {
+  background: linear-gradient(135deg, #1e293b, #334155);
+  padding: 20px;
+  border-radius: 12px;
+  color: white;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.chart-container {
+  margin-top: 30px;
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 12px;
+}

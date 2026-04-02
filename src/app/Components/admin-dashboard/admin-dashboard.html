@@ -1,0 +1,30 @@
+
+<canvas id="ordersChart" ></canvas>
+<div class="dashboard">
+
+  <div class="card">
+    <h3>Total Orders</h3>
+    <p>{{stats?.totalOrders}}</p>
+  </div>
+
+  <div class="card">
+    <h3>Total Revenue</h3>
+    <p>₹ {{stats?.totalRevenue}}</p>
+  </div>
+
+  <div class="card">
+    <h3>Total Users</h3>
+    <p>{{stats?.totalUsers}}</p>
+  </div>
+
+  <div class="card">
+    <h3>Total Products</h3>
+    <p>{{stats?.totalProducts}}</p>
+  </div>
+
+  <!-- 🔥 CHART -->
+<div class="chart-container">
+  <canvas id="ordersChart"></canvas>
+</div>
+
+</div>

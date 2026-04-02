@@ -20,6 +20,7 @@ import { Order } from './Components/order/order';
 import { MyOrders } from './Components/my-orders/my-orders';
 import { OrderDetails } from './order-details/order-details';
 import { AdminOrders } from './Components/admin-orders/admin-orders';
+import { AdminDashboard } from './Components/admin-dashboard/admin-dashboard';
 
 
 
@@ -47,7 +48,8 @@ const routes: Routes = [
     { path: 'add-product', component: AddProductComponent },
       { path: 'products', component: ProductListComponent },
       {path: 'edit-product/:id', component: EditProductComponent},
-      {path:'orders', component: AdminOrders}
+      {path:'orders', component: AdminOrders},
+      {path:'dashboard',component:AdminDashboard}
      
   ]
   },

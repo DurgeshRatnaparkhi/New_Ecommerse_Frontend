@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../Service/orderService';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin-orders',
@@ -40,12 +41,25 @@ export class AdminOrders implements OnInit {
   }
 
   updateStatus(orderId: number, event: any) {
-    const status = event.target.value;
+  const status = event.target.value;
 
-    this.orderService.updateOrderStatus(orderId, status)
-      .subscribe(() => {
-        alert("Status updated");
+  if (!status) return;
+
+  console.log("Updating Order:", orderId, status);
+
+  this.orderService.updateOrderStatus(orderId, status)
+    .subscribe({
+      next: (res: any) => {
+        console.log("Success:", res);
+        Swal.fire(res?.message || "Order status updated successfully");
+
+        // 🔥 Refresh UI
         this.loadOrders();
-      });
-  }
+      },
+      error: (err) => {
+        console.error("Error:", err);
+        Swal.fire("Failed to update order status");
+      }
+    });
+}
 }

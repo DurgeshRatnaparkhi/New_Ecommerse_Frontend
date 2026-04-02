@@ -37,6 +37,8 @@
 .status.shipped { background: blue; }
 .status.delivered { background: green; }
 .status.cancelled { background: red; }
+.status.failed { background: red; } 
+.status.placed { background: #3498db; }
 
 .actions {
   display: flex;

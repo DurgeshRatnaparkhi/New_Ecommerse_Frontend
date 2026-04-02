@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { OrderService } from '../../Service/orderService';
 import { AddressService } from '../../Service/address-service';
 import { CartService } from '../../Service/cart-service';
+import Swal from 'sweetalert2';
 
 declare var Razorpay: any;   // ✅ ADD THIS
 
@@ -32,6 +33,7 @@ export class Order implements OnInit {
     pincode: ''
   };
 order: any;
+ paymentCompleted: boolean = false;
 
   constructor(
     private addressService: AddressService,
@@ -115,63 +117,102 @@ order: any;
   openRazorpay(orderData: any) {
 
   console.log("Razorpay Data:", orderData);
+  
 
   const options = {
-    key: 'rzp_live_SLtwvw076h64NN',  // 🔥 PUT YOUR TEST KEY HERE DIRECTLY
+  key: 'rzp_live_SLtwvw076h64NN',
 
-    amount: orderData.amount * 100,   // backend sending rupees
-    currency: 'INR',
+  amount: orderData.amount * 100,
+  currency: 'INR',
+  order_id: orderData.razorpayOrderId,
 
-    order_id: orderData.razorpayOrderId,   // 🔥 VERY IMPORTANT
+  name: "Durgesh E-Commerce",
 
-    name: "Durgesh E-Commerce",
-    description: "Order Payment",
+  // ✅ SUCCESS
+  handler: (response: any) => {
+    
+  this.paymentCompleted = true;
+    console.log("Payment Success:", response);
+    
 
-    handler: (response: any) => {
+    const paymentData = {
+      razorpayOrderId: response.razorpay_order_id,
+      razorpayPaymentId: response.razorpay_payment_id,
+      razorpaySignature: response.razorpay_signature
+    };
 
-  console.log("Payment Success:", response);
-
-  const paymentData = {
-    razorpayOrderId: response.razorpay_order_id,
-    razorpayPaymentId: response.razorpay_payment_id,
-    razorpaySignature: response.razorpay_signature
-  };
-
-  // 🔥 CALL BACKEND VERIFY API
-  this.orderService.verifyPayment(paymentData)
-    .subscribe({
-      next: (res:any) => {
-
-        alert("Payment Verified & Order Placed Successfully");
-
+    this.orderService.verifyPayment(paymentData).subscribe({
+      next: () => {
+        Swal.fire("Payment Success ✅");
         this.router.navigate(['/orders']);
-
       },
-      error: (err) => {
-        console.error(err);
-        alert("Payment verification failed");
+      error: () => {
+        Swal.fire("Verification failed ❌");
       }
     });
+  },
 
-},
+  // 🔥 THIS IS THE FIX (OUTSIDE HANDLER)
+  modal: {
+    ondismiss: () => {
 
-    prefill: {
-      name: "Customer",
-      email: "test@gmail.com",
-      contact: "9999999999"
-    },
-
-    theme: {
-      color: "rgb(51, 153, 204)"
+      if (this.paymentCompleted) {
+      return; // ✅ DO NOTHING (payment already success)
     }
-  };
+
+      console.log("User exited payment ❌");
+
+      const failedData = {
+        razorpayOrderId: orderData.razorpayOrderId
+      };
+
+      this.orderService.paymentFailed(failedData).subscribe({
+        next: () => {
+          Swal.fire("Payment Cancelled ❌");
+          this.router.navigate(['/orders']);
+        },
+        error: () => {
+          Swal.fire("Error updating failed payment");
+        }
+      });
+
+    }
+  },
+
+  prefill: {
+    name: "Customer",
+    email: "test@gmail.com",
+    contact: "9999999999"
+  },
+
+  theme: {
+    color: "rgb(51, 153, 204)"
+  }
+};
 
   const rzp = new Razorpay(options);
 
-  rzp.on('payment.failed', function (response: any) {
-    alert("Payment Failed");
-    console.error(response.error);
+ rzp.on('payment.failed', (response: any) => {
+
+  if (this.paymentCompleted) 
+    return; // 
+  console.error("Payment Failed:", response);
+
+  const failedData = {
+    razorpayOrderId: orderData.razorpayOrderId
+  };
+
+  this.orderService.paymentFailed(failedData).subscribe({
+    next: () => {
+      Swal.fire("Payment Failed ❌");
+      this.router.navigate(['/orders']);
+    },
+    error: () => {
+      Swal.fire("Error updating failed payment");
+    }
   });
+
+});
 
   rzp.open();
 }

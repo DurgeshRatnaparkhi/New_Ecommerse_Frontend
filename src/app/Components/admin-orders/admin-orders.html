@@ -45,11 +45,14 @@
             👁
           </button>
 
-          <select (change)="updateStatus(o.orderId, $event)">
-            <option disabled selected>Update</option>
-            <option value="SHIPPED">Ship</option>
-            <option value="DELIVERED">Deliver</option>
-          </select>
+          <select 
+           (change)="updateStatus(o.orderId, $event)"
+           [disabled]="o.status === 'FAILED' || o.status === 'CANCELLED'">
+  
+           <option disabled selected>Update</option>
+           <option value="SHIPPED">Ship</option>
+           <option value="DELIVERED">Deliver</option>
+        </select>
 
         </td>
 
